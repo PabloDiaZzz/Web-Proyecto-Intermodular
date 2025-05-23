@@ -1,0 +1,93 @@
+* {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+#btn {
+    z-index: 999999;
+    backdrop-filter: blur(2px);
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    bottom: 70%;
+    right: -10px;
+    background-color: rgba(0, 121, 107, 0.49);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transform: translateX(100%) translateY(50%) rotateZ(180deg);
+    margin: 0;  
+    transition: border-radius 0.5s ease, right 0.5s ease, transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+    overflow: auto;
+}
+
+#btn.btn-visible {
+    border-radius: 10px;
+    right: 20px;
+    transform: translateX(0) translateY(50%) rotateZ(0deg);
+}
+
+#btn-interior {
+    padding: 5px;
+    cursor: default;
+    height: 100%;
+    display: flex;
+    transform: scale(0);
+    flex-direction: column;
+    overflow: auto;
+    scrollbar-width: none;
+    scrollbar-color: #a0b7cf transparent;
+    row-gap: 10px; 
+}
+
+#btn-interior a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex: 1;
+    background-color: #ffffff54;
+    border-radius: 10px;
+    transition: transform 0.3s ease 0.2s;
+    padding: 0;
+}
+
+#btn-interior a:hover {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+.opciones img {
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    position: static;
+    transform: none;
+    display: block;
+}
+
+#btn .ico {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 0.8;
+}
