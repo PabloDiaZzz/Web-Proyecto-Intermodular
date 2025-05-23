@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Formulario de Contacto</title>
   <link rel="stylesheet" href="../css/btn.css">
+  <link rel="stylesheet" href="../css/style.css">
   <style>
     body {
       background-color: #f9f9f9;
@@ -119,15 +120,17 @@
     }
   </style>
 </head>
-
 <body>
-
+  <div id="lang-back">
+        <img class="lang-opt" src="../img/es.png" alt="" draggable="false" id="lang-es">
+        <img class="lang-opt" src="../img/en.png" alt="" draggable="false" id="lang-en">
+    </div>
   <div id="btn">
     <img class="ico" src="../img/rayas.png" alt="" draggable="false">
     <div id="btn-interior">
       <a href="#" class="opciones"><img src="../img/start.png" alt=""></a>
       <a href="javascript:window.history.back()" class="opciones"><img src="../img/atras.png" alt=""></a>
-      <a href="pages/EnvioMensajes.html" class="opciones"><img src="../img/info.png" alt=""></a>
+      <a href="pages/mensajes.html" class="opciones"><img src="../img/info.png" alt=""></a>
       <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
       <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
       <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
@@ -138,14 +141,12 @@
 
   <div id="form">
     <form action="https://formspree.io/f/xrbqvrkq" method="POST">
-      <h2>¡Contactanos!</h2>
-      <label for="email">Tu correo:</label><br>
+      <h2 class="correct" tr-from="Contáctenos" tr-to="Contactanos">¡Contactanos!</h2>
+      <label for="email">Correo electrónico:</label>
       <input type="email" id="email" name="email" required><br><br>
-
-      <label for="subject">Asunto:</label><br>
+      <label for="subject" class="correct" tr-from="Affair" tr-to="Subject">Asunto:</label>
       <input type="text" id="subject" name="subject" required><br><br>
-
-      <label for="message">Mensaje:</label><br>
+      <label for="message">Mensaje:</label>
       <div class="scroll-container">
         <textarea id="message" name="message" required></textarea>
       </div><br>
@@ -153,10 +154,12 @@
       <button type="submit">Enviar</button>
     </form>
   </div>
-
-
-
+  <select name="" id="select-lang">
+    <option value="es">Español</option>
+    <option value="en">English</option>
+  </select>
 </body>
+<script src="../scripts/language.js"></script>
 <script src="../scripts/button.js"></script>
 
 </html>
