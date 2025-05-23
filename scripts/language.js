@@ -32,36 +32,20 @@ function main() {
 
 function changeLang() {
     if (sessionStorage.getItem("lang") === 'null' || sessionStorage.getItem("lang") === '') {
-        langBack.style.display = "flex";
         langBack.style.visibility = "visible";
-        langBack.style.backdropFilter = "blur(6px)";
+        langBack.style.backdropFilter = "blur(10px)";
     } else {
         document.getElementById("select-lang").value = sessionStorage.getItem("lang");
-        cambiarIdioma(sessionStorage.getItem("lang"));
         traducirPagina(sessionStorage.getItem('lang') === 'es' ? 'en' : 'es', sessionStorage.getItem("lang"));
         langBack.style.backdropFilter = "";
         langBack.style.visibility = "hidden";
-        langBack.style.display = "none";
-    }
-}
-
-async function cambiarIdioma(idioma) {
-    try {
-        let response = await fetch('lang/' + idioma + '.json');
-        if (!response.ok) {
-            response = await fetch('../lang/' + idioma + '.json');
-        }
-        if (!response.ok) throw new Error('No se pudo cargar el archivo de traducción');
-        const traducciones = await response.json();
-
-        document.querySelectorAll('[data-trad]').forEach(el => {
-            const clave = el.getAttribute('data-trad');
-            if (traducciones[clave]) {
-                el.innerHTML = traducciones[clave];
-            }
+        langBack.style.transition = "all 1s ease-in-out 0.3s";
+        let contador = 0;
+        document.querySelectorAll('.lang-opt').forEach(child => {
+            contador += 1;
+            child.style.transform = `translateX(${contador % 2 === 1 ? '-100vw' : '100vw'})`;
+            child.style.transition = "all 0.5s ease-in-out";
         });
-    } catch (error) {
-        console.error(error);
     }
 }
 
@@ -121,7 +105,6 @@ async function traducirPagina(origen, destino) {
         }
     }
 }
-
 
 main();
 changeLang();

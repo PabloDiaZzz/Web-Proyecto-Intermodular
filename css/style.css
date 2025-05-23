@@ -410,12 +410,13 @@ nav {
     z-index: 10000000;
     width: 100vw;
     height: 100vh;
-    display: flex;
     visibility: hidden;
-    flex-direction: row;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 50px 50px;
+    place-items: center;
     justify-content: center;
-    column-gap: 50px;
+    align-content: center;
 }
 
 #lang-back img {
