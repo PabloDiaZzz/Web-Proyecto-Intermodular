@@ -67,7 +67,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color:#290033;
+    background-color: #290033;
 }
 
 
@@ -165,14 +165,14 @@ abbr {
     flex-wrap: wrap;
 }
 
-.text-img p{
+.text-img p {
     margin-left: 1rem;
     flex: 1 1 200px;
 }
 
 .button {
     display: flex;
-    background-color:#540069;
+    background-color: #540069;
     color: #fff;
     padding: 0.5rem 1rem;
     margin: 2rem;
@@ -297,7 +297,7 @@ nav {
     }
 
     &::-webkit-scrollbar-thumb {
-        background:#290033;
+        background: #290033;
         border: 3px solid transparent;
         border-radius: 50px;
     }
@@ -435,6 +435,29 @@ nav {
 #select-lang:focus {
     border-color: #9600bb;
     box-shadow: 0 0 0 2px #9600bb;
+}
+
+@media screen and (max-width: 600px) {
+    #select-lang {
+        right: 10px;
+        top: -2%;
+        transform: translateY(-100%);
+    }
+
+    .section h2 {
+        text-align: center;
+        white-space: wrap;
+        max-width: 100dvw;
+    }
+
+    .text-img {
+        justify-content: center;
+    }
+
+    .text-img img {
+        max-width: 90dvw;
+    }
+
 }
 
 html {

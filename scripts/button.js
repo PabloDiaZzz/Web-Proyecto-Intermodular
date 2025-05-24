@@ -112,6 +112,90 @@ function main() {
         document.body.style.userSelect = "";
     });
 
+    // ...dentro de la función main()...
+
+    // Variables para touch
+    let touchStartX, touchStartY, touchInitialRight, touchInitialBottom, touchInitialLeft;
+
+    button.addEventListener("touchstart", (e) => {
+        wasDraged = false;
+        isMouseDown = true;
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        touchInitialBottom = parseInt(window.getComputedStyle(button).bottom, 10);
+
+        if (button.style.right === "") {
+            touchInitialRight = document.defaultView.innerWidth - parseInt(button.style.left) - parseInt(button.style.width);
+        } else {
+            touchInitialRight = parseInt(window.getComputedStyle(button).right, 10);
+        }
+        if (button.style.left === "") {
+            touchInitialLeft = document.defaultView.innerWidth - parseInt(button.style.right) - parseInt(button.style.width);
+        } else {
+            touchInitialLeft = parseInt(window.getComputedStyle(button).left, 10);
+        }
+        button.style.transition = "none";
+        document.body.style.userSelect = "none";
+    });
+
+    document.addEventListener("touchmove", (e) => {
+        if (isMouseDown && !button.classList.contains("btn-visible")) {
+            if (e.target === button || button.contains(e.target)) {
+                e.preventDefault();
+            }
+            isDragging = true;
+            const touch = e.touches[0];
+            let dx = touchStartX - touch.clientX;
+            let dy = touchStartY - touch.clientY;
+            if (button.classList.contains("right")) {
+                if (parseInt(button.style.right) > parseInt(document.defaultView.innerWidth) / 2) {
+                    button.classList.add('left');
+                    button.classList.remove('right');
+                }
+            } else {
+                if (parseInt(button.style.left) > parseInt(document.defaultView.innerWidth) / 2) {
+                    button.classList.add('right');
+                    button.classList.remove('left');
+                }
+            }
+            if (button.style.right === "") {
+                button.style.left = touchInitialLeft + dx + 'px';
+                button.style.right = document.defaultView.innerWidth - parseInt(button.style.left) - parseInt(button.style.width) + 'px';
+            } else if (button.style.left === "") {
+                button.style.right = touchInitialRight + dx + 'px';
+                button.style.left = document.defaultView.innerWidth - parseInt(button.style.right) - parseInt(button.style.width) + 'px';
+            } else {
+                button.style.right = touchInitialRight + dx + 'px';
+                button.style.left = document.defaultView.innerWidth - parseInt(button.style.right) - parseInt(button.style.width) + 'px';
+            }
+            button.style.bottom = touchInitialBottom + dy + 'px';
+        }
+    }, { passive: false });
+
+    document.addEventListener("touchend", () => {
+        if (isDragging) {
+            isDragging = false;
+            wasDraged = true;
+            button.style.transition = transitionClose;
+            if (button.classList.contains("left")) {
+                button.style.right = '';
+                button.style.transform = 'translateX(-100%) translateY(50%) rotateZ(180deg)';
+                button.style.left = 12 + 'px';
+            } else {
+                button.style.left = '';
+                button.style.transform = 'translateX(100%) translateY(50%) rotateZ(180deg)';
+                button.style.right = 12 + 'px';
+            }
+            void button.offsetWidth;
+            button.style.width = "40px";
+        }
+        isMouseDown = false;
+        document.body.style.userSelect = "";
+    });
+
+    // ...resto del código...
+
 
     button.addEventListener("click", clickBoton);
     document.addEventListener("click", clickFuera);
