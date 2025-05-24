@@ -6,6 +6,7 @@
   <title>Formulario de Contacto</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/btn.css">
+  <link rel="icon" type="image/png" href="../img/mail-morado.png">
   <style>
     body {
       background-color: #f9f9f9;
@@ -59,7 +60,7 @@
     }
 
     .scroll-container:has(textarea:focus) {
-      border-color: #00796b;
+      border-color: #690083;
     }
 
     textarea {
@@ -74,7 +75,7 @@
       box-sizing: border-box;
 
       --sb-track-color: #ffffff;
-      --sb-thumb-color: #00796b;
+      --sb-thumb-color: #690083;
       --sb-size: 3px;
     }
 
@@ -99,12 +100,12 @@
 
     input:focus,
     textarea:focus {
-      border-color: #00796b;
+      border-color: #690083;
       outline: none;
     }
 
     button {
-      background-color: #00796b;
+      background-color: #290033;
       color: white;
       padding: 0.75rem;
       width: 100%;
@@ -116,7 +117,7 @@
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #690083;
     }
   </style>
 </head>
@@ -128,14 +129,10 @@
   <div id="btn">
     <img class="ico" src="../img/rayas.png" alt="" draggable="false">
     <div id="btn-interior">
-      <a href="#" class="opciones"><img src="../img/start.png" alt=""></a>
-      <a href="javascript:window.history.back()" class="opciones"><img src="../img/atras.png" alt=""></a>
-      <a href="pages/mensajes.html" class="opciones"><img src="../img/info.png" alt=""></a>
-      <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
-      <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
-      <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
-      <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
-      <a href="" class="opciones"><img src="../img/user.png" alt=""></a>
+            <a href="#" class="opciones"><img src="../img/start.png" alt=""></a>
+            <a href="../index.html" class="opciones"><img src="../img/home-negro.png" alt=""></a>
+            <a href="javascript:window.history.back()" class="opciones"><img src="../img/atras.png" alt=""></a>
+            <a href="../pages/info.html" class="opciones"><img src="../img/info.png" alt=""></a>
     </div>
   </div>
 
@@ -154,10 +151,12 @@
       <button type="submit">Enviar</button>
     </form>
   </div>
-  <select name="" id="select-lang">
+  <footer style="height: 40px; background-color: transparent; position: absolute;">
+    <select name="" id="select-lang">
     <option value="es">Español</option>
     <option value="en">English</option>
   </select>
+  </footer>
 </body>
 <script src="../scripts/language.js"></script>
 <script src="../scripts/button.js"></script>
