@@ -300,10 +300,11 @@ footer {
 
 @keyframes show {
     from {
-        left: max(300px * 6, 100%) ;
+        left: max(300px * 6, 100%);
     }
+
     to {
-        left:-300px;
+        left: -300px;
     }
 }
 
@@ -431,4 +432,48 @@ nav {
 #lang-back img:hover {
     transform: scale(1.05);
     transition: all 0.3s ease;
+}
+
+#select-lang {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    color: #00796b;
+    padding: 0.5rem 0.51rem 0.5rem 0.5rem;
+    border: 2px solid #00796b;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#select-lang:focus {
+    border-color: #004d40;
+    box-shadow: 0 0 0 2px #00b8a27a;
+}
+
+html {
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #00685c;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #009180;
+    }
 }
