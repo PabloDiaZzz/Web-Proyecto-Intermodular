@@ -465,6 +465,14 @@ nav {
     .text-img img {
         max-width: 90dvw;
     }
+
+    html::-webkit-scrollbar {
+        display: none;
+    }
+
+    html, body {
+        scrollbar-width: none;
+    }
 }
 
 html {
