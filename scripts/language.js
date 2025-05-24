@@ -55,7 +55,7 @@ async function traducirAzure(texto, fromLang = "es", toLang = "en") {
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Ocp-Apim-Subscription-Key": "B68IWBYo60xOeEJhaM6HRwRw0AfRLL3qX6XxxmVeDom9jj22hZrWJQQJ99BEAC5RqLJXJ3w3AAAbACOGCQSt",
+            "Ocp-Apim-Subscription-Key": "1K1fYs5fUE4NjCd1WQv9oNGYv1665Ny8MQtNUEWE1bqMJQlnbMDYJQQJ99BEAC5RqLJXJ3w3AAAbACOGc489",
             "Ocp-Apim-Subscription-Region": "westeurope",
             "Content-Type": "application/json"
         },
@@ -110,7 +110,7 @@ async function traducirPagina(origen, destino) {
     document.documentElement.setAttribute("lang", destino);
 }
 
-function rSS() {
+function rss() {
     sessionStorage.clear();
     location.reload();
 }
