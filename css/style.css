@@ -183,7 +183,6 @@ abbr {
 }
 
 .button {
-
     display: flex;
     background-color: #00796b;
     color: #fff;
@@ -215,14 +214,14 @@ footer {
     align-content: center;
     align-items: center;
     justify-content: center;
-    height: 25.594px;
+    height: 26px;
     width: fit-content;
     margin-block: 0;
 
     &:hover {
         & img {
-            scale: 1.02;
-            filter: invert() blur(0.6px);
+            scale: 1.05;
+            filter: invert() blur(0.1px);
         }
     }
 
