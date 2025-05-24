@@ -82,14 +82,11 @@ function main() {
 
         }
     });
-    
-    button.addEventListener('wheel', function(e) {
-        // Si el menú puede hacer scroll, deja que lo haga solo ahí
+
+    button.addEventListener('wheel', function (e) {
         const interior = document.getElementById('btn-interior');
         if (interior.scrollHeight > interior.clientHeight) {
-            // Si el mouse está sobre btn, previene el scroll global
             e.preventDefault();
-            // Hace scroll en el menú manualmente
             interior.scrollTop += e.deltaY;
         }
     }, { passive: false });
@@ -97,8 +94,8 @@ function main() {
     document.addEventListener("mouseup", () => {
         if (isDragging) {
             isDragging = false;
-            button.style.transition = transitionClose;
             wasDraged = true;
+            button.style.transition = transitionClose;
             if (button.classList.contains("left")) {
                 button.style.right = '';
                 button.style.transform = 'translateX(-100%) translateY(50%) rotateZ(180deg)';
@@ -108,6 +105,7 @@ function main() {
                 button.style.transform = 'translateX(100%) translateY(50%) rotateZ(180deg)';
                 button.style.right = 12 + 'px';
             }
+            void button.offsetWidth;
             button.style.width = "40px";
         }
         isMouseDown = false;
@@ -159,9 +157,6 @@ function setUp() {
 
     document.getElementById("btn-interior").style.transition = 'visibility 0.5s ease, opacity 0.5s ease';
     document.getElementById("btn-interior").style.visibility = 'hidden';
-
-    // document.getElementById("btn-interior").style.transition = 'transform 0.5s ease';
-    // document.getElementById("btn-interior").style.transform = 'scale(0) rotate(0deg)';
 }
 
 function clickBoton() {

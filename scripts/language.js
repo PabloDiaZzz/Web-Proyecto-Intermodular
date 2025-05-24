@@ -74,36 +74,45 @@ async function traducirAzure(texto, fromLang = "es", toLang = "en") {
 async function traducirPagina(origen, destino) {
     const elementos = document.querySelectorAll("h1, h2, h3, p, span, div, button, a, li, strong, a, abbr, label");
 
-    for (const el of elementos) {
-        // Solo traducir nodos que tengan texto visible y no hijos complejos
+    const textos = [];
+    const titulos = [];
+    elementos.forEach(el => {
         if (
             el.childNodes.length === 1 &&
-            el.childNodes[0].nodeType === 3 &&  // Nodo texto
+            el.childNodes[0].nodeType === 3 &&
             el.innerText.trim().length > 0
         ) {
-            const textoOriginal = el.innerText;
-            try {
-                const traducido = await traducirAzure(textoOriginal, origen, destino);
-                el.innerText = traducido;
-                if (el.classList.contains("correct")) {
-                    el.textContent = el.textContent.replace(el.getAttribute("tr-from"),el.getAttribute("tr-to"));
-                }
-            } catch (error) {
-                console.error("Error al traducir:", textoOriginal, error);
-            }
+            textos.push({ el, texto: el.innerText });
         }
         if (el.hasAttribute("title")) {
             const titleOriginal = el.getAttribute("title");
             if (titleOriginal.trim().length > 0) {
-                try {
-                    const titleTraducido = await traducirAzure(titleOriginal, origen, destino);
-                    el.setAttribute("title", titleTraducido);
-                } catch (error) {
-                    console.error("Error al traducir title:", titleOriginal, error);
-                }
+                titulos.push({ el, title: titleOriginal });
             }
         }
-    }
+    });
+
+    const promTextos = textos.map(({ texto }) => traducirAzure(texto, origen, destino));
+    const promTitulos = titulos.map(({ title }) => traducirAzure(title, origen, destino));
+    const traduccionesTextos = await Promise.all(promTextos);
+    const traduccionesTitulos = await Promise.all(promTitulos);
+
+    textos.forEach(({ el }, i) => {
+        el.innerText = traduccionesTextos[i];
+        if (el.classList.contains("correct") && el.getAttribute("target") === destino) {
+            el.textContent = el.textContent.replace(el.getAttribute("tr-from"), el.getAttribute("tr-to"));
+        }
+    });
+    titulos.forEach(({ el }, i) => {
+        el.setAttribute("title", traduccionesTitulos[i]);
+    });
+
+    document.documentElement.setAttribute("lang", destino);
+}
+
+function rSS() {
+    sessionStorage.clear();
+    location.reload();
 }
 
 main();

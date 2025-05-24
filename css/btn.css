@@ -1,14 +1,8 @@
-* {
+html {
     scroll-behavior: smooth;
 }
 
-body {
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    -ms-overflow-style: none;
-}
-
-::-webkit-scrollbar {
+#btn::-webkit-scrollbar {
     width: 0;
     background: transparent;
 }
@@ -26,9 +20,8 @@ body {
     border-radius: 20px;
     cursor: pointer;
     transform: translateX(100%) translateY(50%) rotateZ(180deg);
-    margin: 0;  
+    margin: 0;
     transition: border-radius 0.5s ease, right 0.5s ease, transform 0.5s ease, width 0.5s ease, height 0.5s ease;
-    overflow: auto;
 }
 
 #btn.btn-visible {
@@ -47,7 +40,7 @@ body {
     overflow: auto;
     scrollbar-width: none;
     scrollbar-color: #a0b7cf transparent;
-    row-gap: 10px; 
+    row-gap: 10px;
 }
 
 #btn-interior a {
