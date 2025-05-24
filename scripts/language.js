@@ -1,42 +1,48 @@
 const langBack = document.getElementById("lang-back");
 
-if (!sessionStorage.hasOwnProperty("lang")) {
-    sessionStorage.setItem("lang", '');
+if (!sessionStorage.hasOwnProperty("wpi-lang")) {
+    sessionStorage.setItem("wpi-lang", '');
 }
 
 const originalSetItem = sessionStorage.setItem;
 sessionStorage.setItem = function (key, value) {
     originalSetItem.apply(this, arguments);
-    if (key === "lang") {
+    if (key === "wpi-lang") {
         changeLang();
     }
 };
 
 document.addEventListener('DOMContentLoaded', function () {
     const selectLang = document.getElementById("select-lang");
-    selectLang.value = sessionStorage.getItem("lang");
+    selectLang.value = sessionStorage.getItem("wpi-lang");
     selectLang.addEventListener("change", function () {
-        sessionStorage.setItem("lang", this.value);
+        sessionStorage.setItem("wpi-lang", this.value);
     });
+});
+
+window.addEventListener('pageshow', function () {
+    const selectLang = document.getElementById("select-lang");
+    if (selectLang) {
+        selectLang.value = sessionStorage.getItem("wpi-lang");
+    }
 });
 
 function main() {
     document.querySelectorAll('.lang-opt').forEach(option => {
         option.addEventListener('click', function () {
             const lang = this.id.replace('lang-', '');
-            sessionStorage.setItem("lang", lang);
+            sessionStorage.setItem("wpi-lang", lang);
             changeLang();
         });
     });
 }
 
 function changeLang() {
-    if (sessionStorage.getItem("lang") === 'null' || sessionStorage.getItem("lang") === '') {
+    if (sessionStorage.getItem("wpi-lang") === 'null' || sessionStorage.getItem("wpi-lang") === '') {
         langBack.style.visibility = "visible";
         langBack.style.backdropFilter = "blur(10px)";
     } else {
-        document.getElementById("select-lang").value = sessionStorage.getItem("lang");
-        traducirPagina(sessionStorage.getItem('lang') === 'es' ? 'en' : 'es', sessionStorage.getItem("lang"));
+        traducirPagina(sessionStorage.getItem("wpi-lang") === 'es' ? 'en' : 'es', sessionStorage.getItem("wpi-lang"));
         langBack.style.backdropFilter = "";
         langBack.style.visibility = "hidden";
         langBack.style.transition = "all 1s ease-in-out 0.3s";
@@ -46,6 +52,7 @@ function changeLang() {
             child.style.transform = `translateX(${contador % 2 === 1 ? '-100vw' : '100vw'})`;
             child.style.transition = "all 0.5s ease-in-out";
         });
+        document.getElementById("select-lang").value = sessionStorage.getItem("wpi-lang");
     }
 }
 
@@ -72,6 +79,9 @@ async function traducirAzure(texto, fromLang = "es", toLang = "en") {
 }
 
 async function traducirPagina(origen, destino) {
+    const pageKey = location.pathname;
+    const storageKey = `traducciones_${pageKey}`;
+
     const elementos = document.querySelectorAll("h1, h2, h3, p, span, div, button, a, li, strong, a, abbr, label");
 
     const textos = [];
@@ -92,10 +102,19 @@ async function traducirPagina(origen, destino) {
         }
     });
 
-    const promTextos = textos.map(({ texto }) => traducirAzure(texto, origen, destino));
-    const promTitulos = titulos.map(({ title }) => traducirAzure(title, origen, destino));
-    const traduccionesTextos = await Promise.all(promTextos);
-    const traduccionesTitulos = await Promise.all(promTitulos);
+    let traduccionesTextos, traduccionesTitulos;
+
+    const traduccionesMap = new Map(JSON.parse(sessionStorage.getItem(storageKey) || "[]"));
+
+    if (traduccionesMap.has(destino)) {
+        traduccionesTextos = traduccionesMap.get(destino)[0];
+        traduccionesTitulos = traduccionesMap.get(destino)[1];
+    } else {
+        const promTextos = textos.map(({ texto }) => traducirAzure(texto, origen, destino));
+        const promTitulos = titulos.map(({ title }) => traducirAzure(title, origen, destino));
+        traduccionesTextos = await Promise.all(promTextos);
+        traduccionesTitulos = await Promise.all(promTitulos);
+    }
 
     textos.forEach(({ el }, i) => {
         el.innerText = traduccionesTextos[i];
@@ -107,7 +126,11 @@ async function traducirPagina(origen, destino) {
         el.setAttribute("title", traduccionesTitulos[i]);
     });
 
-    document.documentElement.setAttribute("lang", destino);
+    traduccionesMap.set(destino, [traduccionesTextos, traduccionesTitulos]);
+
+    sessionStorage.setItem(storageKey, JSON.stringify(Array.from(traduccionesMap.entries())));
+
+    document.documentElement.setAttribute("wpi-lang", destino);
 }
 
 function rss() {
