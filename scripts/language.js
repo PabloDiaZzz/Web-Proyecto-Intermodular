@@ -42,7 +42,7 @@ function changeLang() {
         langBack.style.visibility = "visible";
         langBack.style.backdropFilter = "blur(10px)";
     } else {
-        // traducirPagina(sessionStorage.getItem("wpi-lang") === 'es' ? 'en' : 'es', sessionStorage.getItem("wpi-lang"));
+        traducirPagina(sessionStorage.getItem("wpi-lang") === 'es' ? 'en' : 'es', sessionStorage.getItem("wpi-lang"));
         langBack.style.backdropFilter = "";
         langBack.style.visibility = "hidden";
         langBack.style.transition = "all 1s ease-in-out 0.3s";
