@@ -438,6 +438,15 @@ nav {
 }
 
 @media screen and (max-width: 600px) {
+    * {
+        max-width: 100dvw;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
     #select-lang {
         right: 10px;
         top: -2%;
@@ -447,7 +456,6 @@ nav {
     .section h2 {
         text-align: center;
         white-space: wrap;
-        max-width: 100dvw;
     }
 
     .text-img {
@@ -457,7 +465,6 @@ nav {
     .text-img img {
         max-width: 90dvw;
     }
-
 }
 
 html {

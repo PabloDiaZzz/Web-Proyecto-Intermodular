@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario de Contacto</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/btn.css">
@@ -25,12 +26,14 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
+      margin: 10px
     }
 
     h2 {
       text-align: center;
       margin-bottom: 1.5rem;
       color: #333;
+      font-size: 2rem;
     }
 
     label {
@@ -38,6 +41,7 @@
       display: block;
       margin-bottom: 0.5rem;
       color: #555;
+
     }
 
     input {
@@ -119,20 +123,48 @@
     button:hover {
       background-color: #690083;
     }
+
+    @media screen and (max-width: 600px) {
+      #form {
+        max-width: min(400px, 80dvw);
+        min-width: 10%;
+        max-height: 90dvh;
+        min-height: 10%;
+      }
+
+      form {
+        min-height: 10%;
+      }
+
+      #select-lang {
+        top: 90%;
+      }
+    }
+
+    @media screen and (max-height: 680px) {
+      br {
+        display: none;
+      }
+
+      #form {
+        padding: min(2rem, 5dvh) 2rem;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div id="lang-back">
-        <img class="lang-opt" src="../img/es.png" alt="" draggable="false" id="lang-es">
-        <img class="lang-opt" src="../img/en.png" alt="" draggable="false" id="lang-en">
-    </div>
+    <img class="lang-opt" src="../img/es.png" alt="" draggable="false" id="lang-es">
+    <img class="lang-opt" src="../img/en.png" alt="" draggable="false" id="lang-en">
+  </div>
   <div id="btn">
     <img class="ico" src="../img/rayas.png" alt="" draggable="false">
     <div id="btn-interior">
-            <a href="#" class="opciones"><img src="../img/start.png" alt=""></a>
-            <a href="../index.html" class="opciones"><img src="../img/home-negro.png" alt=""></a>
-            <a href="javascript:window.history.back()" class="opciones"><img src="../img/atras.png" alt=""></a>
-            <a href="../pages/info.html" class="opciones"><img src="../img/info.png" alt=""></a>
+      <a href="#" class="opciones"><img src="../img/start.png" alt=""></a>
+      <a href="../index.html" class="opciones"><img src="../img/home-negro.png" alt=""></a>
+      <a href="javascript:window.history.back()" class="opciones"><img src="../img/atras.png" alt=""></a>
+      <a href="../pages/info.html" class="opciones"><img src="../img/info.png" alt=""></a>
     </div>
   </div>
 
@@ -153,9 +185,9 @@
   </div>
   <footer style="height: 40px; background-color: transparent; position: absolute;">
     <select name="" id="select-lang">
-    <option value="es">Español</option>
-    <option value="en">English</option>
-  </select>
+      <option value="es">Español</option>
+      <option value="en">English</option>
+    </select>
   </footer>
 </body>
 <script src="../scripts/language.js"></script>
