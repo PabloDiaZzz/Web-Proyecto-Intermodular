@@ -159,7 +159,7 @@ async function getCommitHash() {
 }
 
 async function fetchCommit() {
-    cachedCommit = await getCommitHash();
+    commitCode = await getCommitHash();
 }
 
 main();
