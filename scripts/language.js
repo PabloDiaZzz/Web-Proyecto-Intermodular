@@ -1,5 +1,5 @@
 const langBack = document.getElementById("lang-back");
-const commitCode = null;
+let commitCode = null;
 
 if (!sessionStorage.hasOwnProperty("wpi-lang")) {
     sessionStorage.setItem("wpi-lang", '');
