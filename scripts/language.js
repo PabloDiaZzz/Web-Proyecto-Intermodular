@@ -106,7 +106,7 @@ async function traducirPagina(origen, destino) {
 
     const traduccionesMap = new Map(JSON.parse(localStorage.getItem(storageKey) || "[]"));
 
-    if (traduccionesMap.has(destino)) {
+    if (traduccionesMap.has(destino) && localStorage.getItem(tr-code) === "") {
         traduccionesTextos = traduccionesMap.get(destino)[0];
         traduccionesTitulos = traduccionesMap.get(destino)[1];
     } else {
