@@ -1,0 +1,33 @@
+name: Actualiza code.json tras push
+
+on:
+  push:
+    branches:
+      - main  # o la rama que uses
+
+jobs:
+  update-code-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v4
+
+    - name: Obtener el hash del último commit
+      id: vars
+      run: echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+    - name: Crear el archivo code.json
+      run: |
+        printf '{\n  "commit": "%s"\n}' "${{ steps.vars.outputs.commit_hash }}" > code.json
+
+    - name: Configurar Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+    - name: Commit y push del archivo code.json
+      run: |
+        git add code.json
+        git commit -m "Actualiza code.json con el último commit"
+        git push
