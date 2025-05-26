@@ -1,4 +1,5 @@
 const langBack = document.getElementById("lang-back");
+const commitCode = null;
 
 if (!sessionStorage.hasOwnProperty("wpi-lang")) {
     sessionStorage.setItem("wpi-lang", '');
@@ -106,7 +107,7 @@ async function traducirPagina(origen, destino) {
 
     const traduccionesMap = new Map(JSON.parse(localStorage.getItem(storageKey) || "[]"));
 
-    if (traduccionesMap.has(destino) && localStorage.getItem(tr-code) === "") {
+    if (traduccionesMap.has(destino) && localStorage.getItem("tr-code") === commitCode) {
         traduccionesTextos = traduccionesMap.get(destino)[0];
         traduccionesTitulos = traduccionesMap.get(destino)[1];
     } else {
@@ -129,6 +130,7 @@ async function traducirPagina(origen, destino) {
     traduccionesMap.set(destino, [traduccionesTextos, traduccionesTitulos]);
 
     localStorage.setItem(storageKey, JSON.stringify(Array.from(traduccionesMap.entries())));
+    localStorage.setItem("tr-code", commitCode);
 
     document.documentElement.setAttribute("wpi-lang", destino);
 }
@@ -139,5 +141,27 @@ function rss() {
     location.reload();
 }
 
+async function getCommitHash() {
+    const url = "https://raw.githubusercontent.com/PabloDiaZzz/Web-Proyecto-Intermodular/refs/heads/main/code.json";
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error("No se pudo cargar code.json");
+        }
+
+        const data = await response.json();
+        return data.commit;  // Devuelve el string del commit
+    } catch (error) {
+        console.error("Error al obtener el commit:", error);
+        return null;
+    }
+}
+
+async function fetchCommit() {
+    cachedCommit = await getCommitHash();
+}
+
 main();
+fetchCommit();
 changeLang();
