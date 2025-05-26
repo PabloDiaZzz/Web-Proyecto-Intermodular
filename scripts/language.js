@@ -104,7 +104,7 @@ async function traducirPagina(origen, destino) {
 
     let traduccionesTextos, traduccionesTitulos;
 
-    const traduccionesMap = new Map(JSON.parse(sessionStorage.getItem(storageKey) || "[]"));
+    const traduccionesMap = new Map(JSON.parse(localStorage.getItem(storageKey) || "[]"));
 
     if (traduccionesMap.has(destino)) {
         traduccionesTextos = traduccionesMap.get(destino)[0];
@@ -128,12 +128,13 @@ async function traducirPagina(origen, destino) {
 
     traduccionesMap.set(destino, [traduccionesTextos, traduccionesTitulos]);
 
-    sessionStorage.setItem(storageKey, JSON.stringify(Array.from(traduccionesMap.entries())));
+    localStorage.setItem(storageKey, JSON.stringify(Array.from(traduccionesMap.entries())));
 
     document.documentElement.setAttribute("wpi-lang", destino);
 }
 
 function rss() {
+    localStorage.clear('traducciones_*');
     sessionStorage.clear();
     location.reload();
 }
