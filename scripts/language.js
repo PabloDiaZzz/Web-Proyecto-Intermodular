@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     selectLang.value = sessionStorage.getItem("wpi-lang");
     selectLang.addEventListener("change", function () {
         sessionStorage.setItem("wpi-lang", this.value);
+        changeLang();
     });
 });
 
